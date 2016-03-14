@@ -1,0 +1,19 @@
+<project name="Natives" basedir="." default="build_natives">
+  
+    
+  <property name="workspace_root" value="../"/>
+  <property name="bin" value="${workspace_root}/bin" />
+  <property name="temp_dir" value="${workspace_root}/temp" />
+	
+	
+  <target name="build_natives" description="Building natives">
+  	
+	<javah class="bagaturchess.egtb.gaviota.EGTBProbing"
+  		outputfile="${workspace_root}/bagaturchess_egtb_gaviota_EGTBProbing.h"
+		classpath="${bin}"
+		force="yes">
+	</javah>
+	
+  </target>
+  
+</project>

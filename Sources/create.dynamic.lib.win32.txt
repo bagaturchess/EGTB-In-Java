@@ -1,0 +1,31 @@
+
+
+I am not experienced in C and C++ compilers and platforms ... but here are the steps I found working:
+
+1.  Download Cygwin and install it, say in 'c:\cygwin' directory
+2.  Get tbprobe-0.4.zip - Gaviota Tablebases probing code, examples and APIs. v0.4
+	  the file is presented in the 'resources' directory of this project
+	  or you can download it -> https://sites.google.com/site/gaviotachessengine/download/tbprobe-0.4.zip?attredirects=0&d=1
+4.  Extract zip file tbprobe-0.4.zip to your user home directory 'C:\cygwin\home\<username>'
+    As a result you will have 'C:\cygwin\home\<username>\michiguel-Gaviota-Tablebases-89b87bc\' directory created and filled with content
+5.  Copy the content of '/src/native/' directory inside the project to 'C:\cygwin\home\<username>\michiguel-Gaviota-Tablebases-89b87bc\' directory.
+    This will override some existing files as well as will add new files.
+	Here are the details:
+	  gtb-probe.c - modified (with removed 'Egtb_lock' usage)
+	  sysport/sysport.c - modified (with modified content of '#if defined(GCCLINUX)' - mainly removed lines)
+	  bagaturchess_egtb_gaviota_EGTBProbing.h - generated file by 'javah -jni <javaname>.class'
+	  bagaturchess_egtb_gaviota_EGTBProbing.cpp - the native implementation of the file above
+7. Start Cygwin console and go to 'C:\cygwin\home\<username>\michiguel-Gaviota-Tablebases-89b87bc\' directory
+8. Execute this line to generate object files (*.o) of Gaviota Tablebases probing code: 'gcc-3 -c -mno-cygwin -I sysport/ -I compression/ -I compression/liblzf/ -I compression/zlib/ -I compression/lzma/ -I compression/huffman/ -D MVSC -D MONOTHREAD -D Z_PREFIX -D NDEBUG -Wall -Wextra -O2  tbprobe.c gtb-probe.c gtb-dec.c gtb-att.c sysport/sysport.c compression/wrap.c compression/huffman/hzip.c compression/lzma/LzmaEnc.c compression/lzma/LzmaDec.c compression/lzma/Alloc.c compression/lzma/LzFind.c compression/lzma/Lzma86Enc.c compression/lzma/Lzma86Dec.c compression/lzma/Bra86.c compression/zlib/zcompress.c compression/zlib/uncompr.c compression/zlib/inflate.c compression/zlib/deflate.c compression/zlib/adler32.c compression/zlib/crc32.c compression/zlib/infback.c compression/zlib/inffast.c compression/zlib/inftrees.c compression/zlib/trees.c compression/zlib/zutil.c compression/liblzf/lzf_c.c compression/liblzf/lzf_d.c'
+9. Execute this line to generate object file (*.o) of bagaturchess_egtb_gaviota_EGTBProbing.cpp: 'g++ -mrtd -c -D Z_PREFIX -D NDEBUG -Wall -Wextra -O2 bagaturchess_egtb_gaviota_EGTBProbing.cpp'
+12. Execute this line to generate egtbprobe.dll file: 'gcc-3 -mno-cygwin -shared -o egtbprobe.dll tbprobe.o gtb-probe.o gtb-dec.o gtb-att.o sysport.o wrap.o hzip.o LzmaEnc.o LzmaDec.o Alloc.o LzFind.o Lzma86Enc.o Lzma86Dec.o Bra86.o zcompress.o uncompr.o inflate.o deflate.o adler32.o crc32.o infback.o inffast.o inftrees.o trees.o zutil.o lzf_c.o lzf_d.o bagaturchess_egtb_gaviota_EGTBProbing.o'
+13. Copy the egtbprobe.dll file to the 'resources' directory of this project (e.g. '/GavitaEGTBInJava/resources/egtbprobe.dll')
+14. Run the Ant script '/build/build_distro.xml' and it will generate the distribution file as a zip archive in the root of the project
+
+
+* If you modify the java file and want to prepare a distribution, than you have to:
+a) re-generate the header file by calling the Ant script '/build/build_natives.xml'
+b) Copy the generated file from the project root to '/src/native' directory
+c) Update the corresponding CPP file ('/src/native/bagaturchess_egtb_gaviota_EGTBProbing.cpp') with the implementation of the native functions
+d) Go to step 1 above (or directly step 5)
+

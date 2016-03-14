@@ -1,0 +1,72 @@
+<project name="Distribution" basedir="." default="build_distro">
+  
+  
+  <property name="distro_sufix" value=".0.4_v2" />
+  
+  
+  <property name="workspace_root" value="../"/>
+  <property name="src" value="${workspace_root}/src" />
+  <property name="temp_dir" value="${workspace_root}/temp" />
+  
+  
+  <target name="build_distro" description="Building Distribution">
+  	
+	<delete dir="${temp_dir}" />
+  	
+	<tstamp />
+	<mkdir dir="${temp_dir}" />
+	
+	<copy todir="${temp_dir}/src/">
+	    <fileset dir="${workspace_root}/..">
+	      <include name="GaviotaEGTBInJava/src/**/"/>
+	      <include name="GaviotaEGTBInJava/build/**/"/>
+	      <include name="GaviotaEGTBInJava/resources/**/"/>
+		  <include name="GaviotaEGTBInJava/LICENSE"/>
+		  <include name="GaviotaEGTBInJava/readme.txt"/>
+	      <include name="GaviotaEGTBInJava/*.txt"/>
+		  <include name="GaviotaEGTBInJava/.classpath"/>
+		  <include name="GaviotaEGTBInJava/.project"/>
+	    </fileset>
+	</copy>
+	
+	<zip zipfile="${temp_dir}/egtb_src.zip" basedir="${temp_dir}/src"/>
+	
+	<delete dir="${temp_dir}/src"/>
+	
+	
+	<javac srcdir="${src}" destdir="${temp_dir}"/>
+	
+	<copy todir="${temp_dir}" flatten="true">
+    	<resources>
+			<file file="${workspace_root}/LICENSE"/>
+			<file file="${workspace_root}/readme.txt"/>
+    		<file file="${workspace_root}/release_notes.txt"/>
+		</resources>
+	</copy>
+	
+  	<mkdir dir="${temp_dir}/bin/" />
+	<jar jarfile="${temp_dir}/bin/egtbprobe.jar" basedir="${temp_dir}">
+		<include name="bagaturchess/**/"/>
+		<include name="LICENSE"/>
+		<include name="readme.txt"/>
+	</jar>
+	
+	<delete dir="${temp_dir}/bagaturchess/"/>
+	
+	<copy todir="${temp_dir}" flatten="true">
+    	<resources>
+			<file file="${workspace_root}/resources/egtbprobe.dll"/>
+		</resources>
+	</copy>
+	
+  	<move tofile="${temp_dir}/egtb_LICENSE" file="${temp_dir}/LICENSE"/>
+  	<move tofile="${temp_dir}/egtb_readme.txt" file="${temp_dir}/readme.txt"/>
+  	<move tofile="${temp_dir}/egtb_release_notes.txt" file="${temp_dir}/release_notes.txt"/>
+  	
+	<zip zipfile="${workspace_root}/egtbprobe${distro_sufix}.zip" basedir="${temp_dir}"/>
+	
+	<delete dir="${temp_dir}"/>
+	
+  </target>
+  
+</project>
