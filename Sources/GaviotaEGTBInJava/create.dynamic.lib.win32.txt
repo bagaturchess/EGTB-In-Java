@@ -1,6 +1,7 @@
-
-
-I am not experienced in C and C++ compilers and platforms ... but here are the steps I found working:
+Written in 2013
+Deprecated: option -mno-cygwin is not supported anymore in Cygwin, hence the dll cannot be decoupled from cygwin1.dll and all of its dependencies.
+ 
+Here are the steps for compilation, which I found working:
 
 1.  Download Cygwin and install it, say in 'c:\cygwin' directory
 2.  Get tbprobe-0.4.zip - Gaviota Tablebases probing code, examples and APIs. v0.4

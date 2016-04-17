@@ -20,9 +20,32 @@ public class EGTBProbing {
     
     
     static {
-        System.loadLibrary("egtbprobe");
+    	
+    	if (getJVMBitmode() == 64) {
+            System.loadLibrary("egtbprobe_64");
+		} else { //32
+	        System.loadLibrary("egtbprobe_32");
+		}
     }
     
+    
+	private static int getJVMBitmode() {
+		
+	    String vendorKeys [] = {
+		        "sun.arch.data.model",
+		        "com.ibm.vm.bitmode",
+		        "os.arch",
+		};
+	    
+        for (String key : vendorKeys ) {
+            String property = System.getProperty(key);
+            if (property != null) {
+                int code = (property.indexOf("64") >= 0) ? 64 : 32;
+                return code;
+            }
+        }
+        return 32;
+	}
     
     public final static int NATIVE_WHITE_TO_MOVE	= 0;
     public final static int NATIVE_BLACK_TO_MOVE 	= 1;

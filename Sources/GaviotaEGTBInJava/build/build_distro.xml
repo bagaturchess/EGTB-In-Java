@@ -1,7 +1,7 @@
 <project name="Distribution" basedir="." default="build_distro">
   
   
-  <property name="distro_sufix" value=".0.4_v2" />
+  <property name="distro_sufix" value=".0.4_v3" />
   
   
   <property name="workspace_root" value="../"/>
@@ -15,6 +15,7 @@
   	
 	<tstamp />
 	<mkdir dir="${temp_dir}" />
+  	
 	
 	<copy todir="${temp_dir}/src/">
 	    <fileset dir="${workspace_root}/..">
@@ -28,13 +29,13 @@
 		  <include name="GaviotaEGTBInJava/.project"/>
 	    </fileset>
 	</copy>
-	
+		
 	<zip zipfile="${temp_dir}/egtb_src.zip" basedir="${temp_dir}/src"/>
 	
 	<delete dir="${temp_dir}/src"/>
 	
 	
-	<javac srcdir="${src}" destdir="${temp_dir}"/>
+	<javac compiler="javac1.7" srcdir="${src}" destdir="${temp_dir}"/>
 	
 	<copy todir="${temp_dir}" flatten="true">
     	<resources>
@@ -55,7 +56,8 @@
 	
 	<copy todir="${temp_dir}" flatten="true">
     	<resources>
-			<file file="${workspace_root}/resources/egtbprobe.dll"/>
+			<file file="${workspace_root}/resources/egtbprobe_32.dll"/>
+    		<file file="${workspace_root}/resources/egtbprobe_64.dll"/>
 		</resources>
 	</copy>
 	
