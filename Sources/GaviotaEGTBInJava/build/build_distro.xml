@@ -45,8 +45,8 @@
 		</resources>
 	</copy>
 	
-  	<mkdir dir="${temp_dir}/bin/" />
-	<jar jarfile="${temp_dir}/bin/egtbprobe.jar" basedir="${temp_dir}">
+  	<!--mkdir dir="${temp_dir}/bin/" /-->
+	<jar jarfile="${temp_dir}/egtbprobe.jar" basedir="${temp_dir}">
 		<include name="bagaturchess/**/"/>
 		<include name="LICENSE"/>
 		<include name="readme.txt"/>

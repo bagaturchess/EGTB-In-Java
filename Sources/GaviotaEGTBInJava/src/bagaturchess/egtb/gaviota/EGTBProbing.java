@@ -19,34 +19,6 @@ package bagaturchess.egtb.gaviota;
 public class EGTBProbing {
     
     
-    static {
-    	
-    	if (getJVMBitmode() == 64) {
-            System.loadLibrary("egtbprobe_64");
-		} else { //32
-	        System.loadLibrary("egtbprobe_32");
-		}
-    }
-    
-    
-	private static int getJVMBitmode() {
-		
-	    String vendorKeys [] = {
-		        "sun.arch.data.model",
-		        "com.ibm.vm.bitmode",
-		        "os.arch",
-		};
-	    
-        for (String key : vendorKeys ) {
-            String property = System.getProperty(key);
-            if (property != null) {
-                int code = (property.indexOf("64") >= 0) ? 64 : 32;
-                return code;
-            }
-        }
-        return 32;
-	}
-    
     public final static int NATIVE_WHITE_TO_MOVE	= 0;
     public final static int NATIVE_BLACK_TO_MOVE 	= 1;
     
@@ -75,15 +47,42 @@ public class EGTBProbing {
     }
     
     
-	public static EGTBProbing getSingleton() {
+    public static EGTBProbing getSingleton() {
+ 
 		if (singleton == null) {
 			synchronized(EGTBProbing.class) {
 				if (singleton == null) {
+					
+			    	if (getJVMBitmode() == 64) {
+			            System.loadLibrary("egtbprobe_64");
+					} else { //32
+				        System.loadLibrary("egtbprobe_32");
+					}
+			    	
 					singleton = new EGTBProbing();
 				}
 			}
 		}
 		return singleton;
+    }
+	
+	
+	private static int getJVMBitmode() {
+		
+	    String vendorKeys [] = {
+		        "sun.arch.data.model",
+		        "com.ibm.vm.bitmode",
+		        "os.arch",
+		};
+	    
+        for (String key : vendorKeys ) {
+            String property = System.getProperty(key);
+            if (property != null) {
+                int code = (property.indexOf("64") >= 0) ? 64 : 32;
+                return code;
+            }
+        }
+        return 32;
 	}
 	
 	
