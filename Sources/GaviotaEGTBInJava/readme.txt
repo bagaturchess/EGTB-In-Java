@@ -1,14 +1,3 @@
-/*
- *  Java API of Gaviota Tablebases Probing Code
- *  Copyright (c) 2012 Krasimir I. Topchiyski
- *
- *  This Software is distributed with MIT License but
- *  is consisting of other parts distributed under their own (and possibly different) licenses.
- *  See LICENSE in LICENSE.txt for more details
- *  
- *  Open Source project location: http://sourceforge.net/projects/egtb-in-java/
- *  SVN repository https://svn.code.sf.net/p/egtb-in-java/code-0
- */
 
 
 For the latest and greatest version of this readme file you can visit the
