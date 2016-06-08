@@ -122,7 +122,7 @@ public class EGTBProbing {
      * 
      * @return true if probing founds record in the table bases.
      */
-    public final native boolean probeHard(int colour_to_move,
+    public synchronized final native boolean probeHard(int colour_to_move,
     									int castles,
     									int enpass_sq,
     									int[] white_sqs, //terminated with NATIVE_SQUARE_NONE
