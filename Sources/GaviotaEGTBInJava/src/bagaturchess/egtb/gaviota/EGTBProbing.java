@@ -18,6 +18,19 @@ package bagaturchess.egtb.gaviota;
 
 public class EGTBProbing {
     
+	
+	/**
+	 * !!! IMPORTANT !!!
+	 * 
+	 * Instances of this class are not thread safe.
+	 * That is why a singleton instance with synchronized native method probeHard is provided.
+	 * In order to have multiple instances, the change into the native *.c file should be done.
+	 * All fields into the native method should be wrapped in different objects,
+	 * because otherwise they are global.
+	 * If an attempt to use this method without synchronized keyword is made,
+	 * than there is probability all threads to go in infinite loops (this was proved with tested on 8 CPU cores). 
+	 */
+	
     
     public final static int NATIVE_WHITE_TO_MOVE	= 0;
     public final static int NATIVE_BLACK_TO_MOVE 	= 1;
