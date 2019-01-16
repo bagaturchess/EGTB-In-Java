@@ -1,5 +1,5 @@
 
-Version 0.4_v3 (2015)
+Version 0.4_v3 (7 May 2016)
   * Windows 64 bits support
 
 Version 0.4_v2 (28 February 2013)
